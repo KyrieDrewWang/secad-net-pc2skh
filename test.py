@@ -12,7 +12,7 @@ def main(args):
  	# Load experiment specifications
 	specs = load_experiment_specifications(experiment_directory)
 
-	occ_dataset = dataloader.VoxelSamples(specs["DataSource"])	
+	occ_dataset = dataloader.VoxelSamples(specs["TestDataSource"])	
 
 	reconstruction_dir = os.path.join(experiment_directory, "Reconstructions")
 	MC_dir = os.path.join(reconstruction_dir, 'MC/')  # Dir for marching cube results
@@ -23,14 +23,10 @@ def main(args):
 		if not os.path.isdir(directory):
 			os.makedirs(directory)
   
-	shape_indexes = list(range(int(args.start), int(args.end)))
-	print('Shape indexes all: ', shape_indexes)
-
 	specs["experiment_directory"] = experiment_directory
 	ft_agent = FineTunerAE(specs)
 
-	for index in shape_indexes:
-		shapename = occ_dataset.data_names[index]
+	for voxels, occ_data, shapename in occ_dataset:
 		shape_code, shape_3d = ft_agent.evaluate(shapename, args.checkpoint)
 
 		mesh_filename = os.path.join(MC_dir, shapename)
@@ -38,7 +34,7 @@ def main(args):
 		sk_filepath = os.path.join(sk_dir, shapename)
 
   		# Create CAD mesh
-		utils.create_CAD_mesh(ft_agent.generator, shape_code.cuda(), shape_3d.cuda(), CAD_mesh_filepath)
+		# utils.create_CAD_mesh(ft_agent.generator, shape_code.cuda(), shape_3d.cuda(), CAD_mesh_filepath)
 
 		# Create mesh using marching cubes
 		utils.create_mesh_mc(
@@ -46,7 +42,7 @@ def main(args):
 		)
 
 		# Draw 2D sketch image
-		utils.draw_2d_im_sketch(shape_code.cuda(), ft_agent.generator, sk_filepath)
+		# utils.draw_2d_im_sketch(shape_code.cuda(), ft_agent.generator, sk_filepath)
 
 
 if __name__ == "__main__":
@@ -102,5 +98,6 @@ if __name__ == "__main__":
 	os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 	os.environ["CUDA_VISIBLE_DEVICES"]="%d"%int(args.gpu)
  
+
 	main(args)
 	

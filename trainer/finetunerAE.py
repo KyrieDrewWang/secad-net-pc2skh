@@ -120,9 +120,7 @@ class FineTunerAE(BaseTrainer):
         self.optimizer_code.step()
         
     def evaluate(self, shapename, checkpoint):
-        saved_model_epoch, shape_code = super().load_model_parameters_per_shape(
-                shapename, checkpoint,
-            )
+        saved_model_epoch, shape_code = super().load_model_parameters_per_shape(shapename, checkpoint,)
 
         print('Loaded epoch: %d'%(saved_model_epoch))
         self.decoder.eval()

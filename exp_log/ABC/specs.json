@@ -1,5 +1,5 @@
 {
-  "DataSource" : "data/",
+  "DataSource" : "data/abc_all",
   "NumEpochs" : 1000,
   "NumPrimitives": 4,
   "BatchSize": 12,

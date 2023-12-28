@@ -1,0 +1,1 @@
+python train.py -e pc2skh -g 0

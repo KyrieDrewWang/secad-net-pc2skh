@@ -1,0 +1,64 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: finetuning.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "-e",
+                "pc2skh", 
+                "-g", 
+                "8", 
+                "-c", 
+                "best", 
+                "--start",
+                "0", 
+                "--end", 
+                "1"
+            ]
+        },
+        {
+            "name": "Python: test.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "-e",
+                "ABC", 
+                "-g", 
+                "8", 
+                "-c", 
+                "best", 
+                "--mc_threshold", 
+                "0.7", 
+                "--start",
+                "0", 
+                "--end", 
+                "1"
+            ]
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "-e",
+                "ABC",
+                "-g",
+                "8"
+            ]
+        }
+    ]
+}

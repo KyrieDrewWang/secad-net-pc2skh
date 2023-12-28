@@ -1,4 +1,5 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"]="4"
 import argparse
 from tqdm import tqdm
 
@@ -10,13 +11,13 @@ from dataset import dataloader
 def main(args):
     # Set random seed
 	init_seeds()
- 
+	epoches_ft = 5
   	# Load experiment specifications
 	experiment_directory = os.path.join('./exp_log', args.experiment_directory)
 	specs = load_experiment_specifications(experiment_directory)
  	
   	# Create dataset and data loader
-	occ_dataset = dataloader.VoxelSamples(specs["DataSource"])	
+	occ_dataset = dataloader.VoxelSamples(specs["TestDataSource"])	
  
   	# Indices of shapes that need fine-tuning
 	shape_indexes = list(range(int(args.start_index), int(args.end_index)))
@@ -27,15 +28,19 @@ def main(args):
  
 	specs["experiment_directory"] = experiment_directory
 
-	for index in shape_indexes:
-		print('Fine-tuning shape index', index)
-		shapename = occ_dataset.data_names[index]
-		occ_data = occ_dataset.data_points[index].unsqueeze(0).cuda()
-		voxels = occ_dataset.data_voxels[index].unsqueeze(0).cuda()
+	# for index in shape_indexes:
+	# 	print('Fine-tuning shape index', index)
+	# 	shapename = occ_dataset.data_names[index]
+	# 	occ_data = occ_dataset.data_points[index].unsqueeze(0).cuda()
+	# 	voxels = occ_dataset.data_voxels[index].unsqueeze(0).cuda()
+
+	for voxels, occ_data, shapename in occ_dataset:
+
+		occ_data = occ_data.unsqueeze(0).cuda()
+		voxels = voxels.unsqueeze(0).cuda()
 		ft_agent = FineTunerAE(specs)
-
 		start_epoch = ft_agent.load_shape_code(voxels, args.checkpoint)
-
+  
 		# start finetuning
 		clock = ft_agent.clock
 		pbar = tqdm(range(start_epoch, start_epoch + epoches_ft))
