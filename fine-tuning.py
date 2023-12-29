@@ -1,5 +1,5 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"]="4"
+os.environ["CUDA_VISIBLE_DEVICES"]="5"
 import argparse
 from tqdm import tqdm
 
@@ -11,7 +11,7 @@ from dataset import dataloader
 def main(args):
     # Set random seed
 	init_seeds()
-	epoches_ft = 5
+	epoches_ft = 200
   	# Load experiment specifications
 	experiment_directory = os.path.join('./exp_log', args.experiment_directory)
 	specs = load_experiment_specifications(experiment_directory)
@@ -93,7 +93,7 @@ if __name__ == "__main__":
  
 	args = arg_parser.parse_args()
  
-	os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-	os.environ["CUDA_VISIBLE_DEVICES"]="%d"%int(args.gpu)
+	# os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+	# os.environ["CUDA_VISIBLE_DEVICES"]="%d"%int(args.gpu)
  
 	main(args)

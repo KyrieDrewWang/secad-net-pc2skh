@@ -102,7 +102,7 @@ class VoxelSamples(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         data_url = self.data_urls[idx]
         
-        _, data_id = os.path.split(data_url[0])  
+        _, data_id = os.path.split(data_url)  
         data_id = data_id.replace(".h5", "")
 
         with h5py.File(data_url, 'r') as fp:

@@ -51,24 +51,25 @@ def process_one(path):
 
     # out_pc = read_ply(path)
     # out_pc = out_pc - np.mean(out_pc, axis=0)
+    try:
+        pred_mesh = o3d.io.read_triangle_mesh(path)
 
-    pred_mesh = o3d.io.read_triangle_mesh(path)
+        out_pc = o3d.geometry.TriangleMesh.sample_points_uniformly(pred_mesh, number_of_points=args.n_points)
+        out_pc = np.array(out_pc.points)
+        out_pc = out_pc - np.mean(out_pc)    
 
-    out_pc = o3d.geometry.TriangleMesh.sample_points_uniformly(pred_mesh, number_of_points=args.n_points)
-    out_pc = np.array(out_pc.points)
-    out_pc = out_pc - np.mean(out_pc)    
+        gt_mesh = o3d.io.read_triangle_mesh(gt_pc_path)
+        gt_pc  = o3d.geometry.TriangleMesh.sample_points_uniformly(gt_mesh, number_of_points=args.n_points)
+        gt_pc = np.array(gt_pc.points)
+        gt_pc = gt_pc - np.mean(out_pc)   
 
-    gt_mesh = o3d.io.read_triangle_mesh(gt_pc_path)
-    gt_pc  = o3d.geometry.TriangleMesh.sample_points_uniformly(gt_mesh, number_of_points=args.n_points)
-    gt_pc = np.array(out_pc.points)
-    gt_pc = gt_pc - np.mean(out_pc)   
-
-    cd = chamfer_dist(gt_pc, out_pc)
-    return cd
-
+        cd = chamfer_dist(gt_pc, out_pc)
+        return cd
+    except:
+        return None
 
 def run(args):
-    filepaths = sorted(glob.glob(os.path.join(args.src, "*.ply")))
+    filepaths = sorted(glob.glob(os.path.join(args.src, "*.obj")))
     if args.num != -1:
         filepaths = filepaths[:args.num]
 
@@ -132,7 +133,7 @@ def run(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--src', type=str, default="/data/wc/SECAD-Net/exp_log/pc2skh/Reconstructions/", required=False)
+    parser.add_argument('--src', type=str, default="/data/wc/SECAD-Net/exp_log/pc2skh/Reconstructions/MC", required=False)
     parser.add_argument('--n_points', type=int, default=2000)
     parser.add_argument('--num', type=int, default=-1)
     parser.add_argument('--parallel', action='store_true', help="use parallelization")

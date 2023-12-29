@@ -1,1 +1,1 @@
-python fine-tuning.py -e pc2skh -g 0 -c best --start 0 --end 1
+python fine-tuning.py -e pc2skh1 -g 0 -c 900 --start 0 --end 2
