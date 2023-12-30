@@ -1,8 +1,8 @@
 import os
 
-data_dir = "/data/wc/SECAD-Net/data/secad/data"
+data_dir = "/data/wc/SECAD-Net/data/secad_8192/h5"
 
-DATA_base = "/data/wc/SECAD-Net/data/secad"
+DATA_base = "/data/wc/SECAD-Net/data/secad_8192/"
 text_file_path_train = os.path.join(DATA_base, "data_train.txt")  
 text_file_path_val  =  os.path.join(DATA_base, "data_val.txt")
 text_file_path_test =  os.path.join(DATA_base, "data_test.txt")

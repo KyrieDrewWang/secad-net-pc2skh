@@ -297,7 +297,7 @@ def process(data_url, num_testing_points=8192):
 
 if __name__ == "__main__":
     
-    data_source = "/data/wc/SECAD-Net/data/secad/train.txt"
+    data_source = "/data/wc/SECAD-Net/data/secad/test.txt"
     SAVE_H5_base = "/data/wc/SECAD-Net/data/secad_8192/h5"
     output_folder = "/data/wc/SECAD-Net/data/secad_8192"
     

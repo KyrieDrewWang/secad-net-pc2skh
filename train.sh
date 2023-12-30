@@ -1,1 +1,1 @@
-python train.py -e pc2skh2 -g 0
+python train.py -e pc2skh3 -g 0

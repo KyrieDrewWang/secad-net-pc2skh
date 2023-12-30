@@ -11,7 +11,7 @@ from dataset import dataloader
 def main(args):
     # Set random seed
 	init_seeds()
-	epoches_ft = 200
+	epoches_ft = 5
   	# Load experiment specifications
 	experiment_directory = os.path.join('./exp_log', args.experiment_directory)
 	specs = load_experiment_specifications(experiment_directory)

@@ -1,5 +1,5 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = '4'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 import argparse
 import torch.utils.data as data_utils
 from tqdm import tqdm
