@@ -1,1 +1,1 @@
-python test.py -e pc2skh1 -g 0 -c best --mc_threshold 0.7 --start 0 --end 1
+python test.py -e pc2skh3 -g 0 -c best --mc_threshold 0.7 --start 0 --end 1
